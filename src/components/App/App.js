@@ -8,6 +8,9 @@ import SignUp from '../SignUp/SignUp'
 import SignIn from '../SignIn/SignIn'
 import SignOut from '../SignOut/SignOut'
 import ChangePassword from '../ChangePassword/ChangePassword'
+import MemoryCreate from '../Memories/MemoryCreate'
+
+// import MemoryForm from '../Memories/MemoryForm'
 
 class App extends Component {
   constructor () {
@@ -42,6 +45,7 @@ class App extends Component {
           />
         ))}
         <main className="container">
+          {/* _____Authentication Routes for Users_____ */}
           <Route path='/sign-up' render={() => (
             <SignUp msgAlert={this.msgAlert} setUser={this.setUser} />
           )} />
@@ -54,6 +58,13 @@ class App extends Component {
           <AuthenticatedRoute user={user} path='/change-password' render={() => (
             <ChangePassword msgAlert={this.msgAlert} user={user} />
           )} />
+
+          {/* _____RESTful Routes for Memories_____ */}
+          {/* <AuthenticatedRoute user={user} exact path="/memories" component={MemoryIndex} /> */}
+          {/* <AuthenticatedRoute user={user} exact path="/memories/:id" component={MemoryShow} /> */}
+          {/* <AuthenticatedRoute user={user} exact path="/memories/:id/edit" component={MemoryUpdate} /> */}
+          <AuthenticatedRoute user={user} exact path="/memories-create" render={() => (
+            <MemoryCreate />
         </main>
       </Fragment>
     )
