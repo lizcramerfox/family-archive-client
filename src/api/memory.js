@@ -11,6 +11,16 @@ export const memoryIndex = user => {
   })
 }
 
+export const memoryShow = (user, id) => {
+  return axios({
+    url: apiUrl + '/memories/:id',
+    method: 'GET',
+    headers: {
+      'Authorization': `Token token=${user.token}`
+    }
+  })
+}
+
 export const memoryCreate = (user, memory) => {
   return axios({
     url: apiUrl + '/memories-create',
@@ -28,28 +38,29 @@ export const memoryCreate = (user, memory) => {
   })
 }
 
-// export const signOut = user => {
-//   return axios({
-//     url: apiUrl + '/sign-out',
-//     method: 'DELETE',
-//     headers: {
-//       'Authorization': `Token token=${user.token}`
-//     }
-//   })
-// }
-//
-// export const changePassword = (passwords, user) => {
-//   return axios({
-//     url: apiUrl + '/change-password',
-//     method: 'PATCH',
-//     headers: {
-//       'Authorization': `Token token=${user.token}`
-//     },
-//     data: {
-//       passwords: {
-//         old: passwords.oldPassword,
-//         new: passwords.newPassword
-//       }
-//     }
-//   })
-// }
+export const memoryUpdate = (user, memory) => {
+  return axios({
+    url: apiUrl + '/memories/:id/edit',
+    method: 'GET',
+    headers: {
+      'Authorization': `Token token=${user.token}`
+    },
+    data: {
+      memory: {
+        title: memory.title,
+        description: memory.description,
+        people: memory.people
+      }
+    }
+  })
+}
+
+export const memoryDestroy = (user) => {
+  return axios({
+    url: apiUrl + '/memories/:id',
+    method: 'DELETE',
+    headers: {
+      'Authorization': `Token token=${user.token}`
+    }
+  })
+}
