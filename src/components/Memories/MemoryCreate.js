@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 
-import axios from 'axios'
-import apiUrl from '../../apiConfig'
+import { memoryCreate } from '../../api/memory'
 
-import MemoryForm from './MemoryForm'
+import MemoryForm from './MemoryForm.js'
 
 class MemoryCreate extends Component {
   constructor () {
@@ -30,17 +29,11 @@ class MemoryCreate extends Component {
     // set the state
     this.setState({ memory: editedMemory })
   }
-
+ß
   handleSubmit = (event) => {
     event.preventDefault()
 
-    axios({
-      url: `${apiUrl}/memories`,
-      method: 'POST',
-      data: {
-        memory: this.state.memory
-      }
-    })
+    memoryCreate(this.user, this.state.memory)
       .then(res => {
         // take the ID that was created and set it to the memory
         this.setState({ createdId: res.data.memory._id })
@@ -54,7 +47,7 @@ class MemoryCreate extends Component {
     let memoryJsx
 
     if (createdId) {
-      // If the memory ID already exists, redirect to SHOW that id
+      // If the memory's ID already exists, redirect to SHOW that id
       memoryJsx = <Redirect to={`/memories/${createdId}`}/>
     } else {
       memoryJsx = (
