@@ -13,33 +13,24 @@ class MemoryShow extends Component {
   }
 
   componentDidMount () {
+    console.log('this is MemoryShow', this)
     memoryShow(this.props.user, this.props.id)
       .then(res => {
-        console.log('Res is', res)
+        console.log('res.data.memory is: ', res.data.memory)
         this.setState({ memory: res.data.memory })
       })
       .catch(console.error)
   }
 
-  // destroy = (event) => {
-  //   event.preventDefault()
-  //   memoryDestroy(this.props.id)
-  //     .then(() => {
-  //       this.setState({ deleted: true })
-  //     })
-  //     .catch(console.error)
-  // }
-
   render () {
-    const { memory, deleted } = this.state.props
+    console.log(this.state)
+    const { memory, deleted } = this.state
 
     let memoryJsx
 
     console.log(memory)
 
-    if (!memory) {
-      memoryJsx = 'Loading...'
-    } else if (deleted) {
+    if (deleted) {
       // If we deleted the memory, redirect to `/memories`
       memoryJsx = <Redirect to={'/memories/'}/>
     } else {
@@ -50,7 +41,7 @@ class MemoryShow extends Component {
           <p>People: {memory.people}</p>
           <button onClick={this.destroy}>Delete</button>
           <button>
-            <Link to={`/books/${memory.id}/edit`}>Update</Link>
+            <Link to={`/memories/${memory.id}/edit`}>Update</Link>
           </button>
         </div>
       )
