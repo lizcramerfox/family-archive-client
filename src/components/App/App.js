@@ -3,11 +3,13 @@ import { Route } from 'react-router-dom'
 
 import AuthenticatedRoute from '../AuthenticatedRoute/AuthenticatedRoute'
 import AutoDismissAlert from '../AutoDismissAlert/AutoDismissAlert'
+
 import Header from '../Header/Header'
-import SignUp from '../SignUp/SignUp'
-import SignIn from '../SignIn/SignIn'
-import SignOut from '../SignOut/SignOut'
-import ChangePassword from '../ChangePassword/ChangePassword'
+
+import SignUp from '../Authentication/SignUp'
+import SignIn from '../Authentication/SignIn'
+import SignOut from '../Authentication/SignOut'
+import ChangePassword from '../Authentication/ChangePassword'
 // import MemoryCreate from '../Memories/MemoryCreate'
 import MemoryIndex from '../Memories/MemoryIndex'
 import MemoryShow from '../Memories/MemoryShow'
