@@ -27,7 +27,6 @@ class App extends Component {
   }
 
   setUser = user => this.setState({ user })
-
   clearUser = () => this.setState({ user: null })
 
   msgAlert = ({ heading, message, variant }) => {

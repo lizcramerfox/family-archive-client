@@ -1,57 +1,42 @@
 import React, { Component } from 'react'
-import { Redirect, Link } from 'react-router-dom'
+import MemoryForm from './MemoryForm'
 import { memoryShow } from '../../api/memory'
 
 class MemoryShow extends Component {
-  constructor () {
-    super()
-
+  constructor (props) {
+    super(props)
     this.state = {
-      memory: null,
-      deleted: false
+      editable: true
     }
   }
 
   componentDidMount () {
-    console.log('this is MemoryShow', this)
     memoryShow(this.props.user, this.props.id)
       .then(res => {
-        console.log('res.data.memory is: ', res.data.memory)
         this.setState({ memory: res.data.memory })
       })
       .catch(console.error)
   }
 
   render () {
-    console.log(this.state)
-    const { memory, deleted } = this.state
-
-    let memoryJsx
-
-    console.log(memory)
-
-    if (deleted) {
-      // If we deleted the memory, redirect to `/memories`
-      memoryJsx = <Redirect to={'/memories/'}/>
+    if (!this.state.memory) {
+      return (<p>Loading memory...</p>)
     } else {
-      memoryJsx = (
+      const memoryJsx = (
         <div>
-          <h4>Title: {memory.title}</h4>
-          <h6>Description: {memory.description}</h6>
-          <p>People: {memory.people}</p>
-          <button onClick={this.destroy}>Delete</button>
-          <button>
-            <Link to={`/memories/${memory.id}/edit`}>Update</Link>
-          </button>
+          <MemoryForm />
+          {this.state.memory.id}
+          {this.state.memory.title}
+          {this.state.memory.description}
+          {this.state.memory.people}
+        </div>
+      )
+      return (
+        <div>
+          {memoryJsx}
         </div>
       )
     }
-
-    return (
-      <div>
-        {memoryJsx}
-      </div>
-    )
   }
 }
 
