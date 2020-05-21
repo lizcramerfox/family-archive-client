@@ -9,6 +9,11 @@ import SignIn from '../SignIn/SignIn'
 import SignOut from '../SignOut/SignOut'
 import ChangePassword from '../ChangePassword/ChangePassword'
 import MemoryCreate from '../Memories/MemoryCreate'
+import MemoryIndex from '../Memories/MemoryIndex'
+import MemoryShow from '../Memories/MemoryShow'
+import MemoryUpdate from '../Memories/MemoryUpdate'
+import MemoryDestroy from '../Memories/MemoryDestroy'
+// import MemoriesDisplay from '../Memories/MemoriesDisplay'
 
 // import MemoryForm from '../Memories/MemoryForm'
 
@@ -60,12 +65,23 @@ class App extends Component {
           )} />
 
           {/* _____RESTful Routes for Memories_____ */}
-          {/* <AuthenticatedRoute user={user} exact path="/memories" component={MemoryIndex} /> */}
-          {/* <AuthenticatedRoute user={user} exact path="/memories/:id" component={MemoryShow} /> */}
-          {/* <AuthenticatedRoute user={user} exact path="/memories/:id/edit" component={MemoryUpdate} /> */}
+          <AuthenticatedRoute user={user} path='/memories' render={() => (
+            <MemoryIndex msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} exact path="/memories/:id" render={() => (
+            <MemoryShow msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} exact path="/memories/:id/edit" render={() => (
+            <MemoryUpdate msgAlert={this.msgAlert} user={user} />
+          )} />
           <AuthenticatedRoute user={user} exact path="/memories-create" render={() => (
-            <MemoryCreate />
+            <MemoryCreate msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} exact path="/memories/:id" render={() => (
+            <MemoryDestroy msgAlert={this.msgAlert} user={user} />
+          )} />
         </main>
+
       </Fragment>
     )
   }

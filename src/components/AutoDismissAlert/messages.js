@@ -1,10 +1,20 @@
 export default {
   signUpSuccess: 'Succesfully registered! You\'ve been signed in as well.',
-  signUpFailure: 'Registration failed. Email may be taken, or passwords don\'t match. Please try again',
+  signUpFailure: 'Registration failed. Email may be taken, or passwords don\'t match. Please try again.',
   signInSuccess: 'Signed in successfully. Welcome!',
   signInFailure: 'Failed to sign in. Check your email and password and try again.',
   signOutSuccess: 'Signed out sucessfully!',
   signOutFailure: 'Failed to sign out. Please try again.',
   changePasswordSuccess: 'Password changed successfully!',
-  changePasswordFailure: 'Failed to change password. Check your email and passwords and try again.'
+  changePasswordFailure: 'Failed to change password. Please make sure your password and password confirmation match and try again.',
+  createMemorySuccess: 'New memory saved!',
+  createMemoryFailure: 'Failed to save your memory. Please try again.',
+  updateMemorySuccess: 'Your memory has been updated!',
+  updateMemoryFailure: 'Failed to update your memory. Please try again.',
+  destroyMemorySuccess: 'Your memory has been deleted.',
+  destroyMemoryFailure: 'Failed to delete your memory. Please try again.',
+  indexMemorySuccess: 'All memories retrieved successfully.',
+  indexMemoryFailure: 'Failed to retrieve your memories. Please try again.',
+  showMemorySuccess: 'Memory retreived successfully',
+  showMemoryFailure: 'Failed to retrieve memory. Please try again.'
 }
