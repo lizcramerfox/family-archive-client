@@ -10,10 +10,10 @@ import SignUp from '../Authentication/SignUp'
 import SignIn from '../Authentication/SignIn'
 import SignOut from '../Authentication/SignOut'
 import ChangePassword from '../Authentication/ChangePassword'
-// import MemoryCreate from '../Memories/MemoryCreate'
+import MemoryCreate from '../Memories/MemoryCreate'
 import MemoryIndex from '../Memories/MemoryIndex'
 import MemoryShow from '../Memories/MemoryShow'
-import MemoryUpdate from '../Memories/MemoryUpdate'
+// import MemoryUpdate from '../Memories/MemoryUpdate'
 // import MemoryDestroy from '../Memories/MemoryDestroy'
 
 class App extends Component {
@@ -28,7 +28,6 @@ class App extends Component {
 
   setUser = user => this.setState({ user })
   clearUser = () => this.setState({ user: null })
-
   msgAlert = ({ heading, message, variant }) => {
     this.setState({ msgAlerts: [...this.state.msgAlerts, { heading, message, variant }] })
   }
@@ -69,11 +68,10 @@ class App extends Component {
           <AuthenticatedRoute user={user} exact path='/memories/:id' render={(data) => (
             <MemoryShow msgAlert={this.msgAlert} user={user} id={data.match.params.id}/>
           )} />
-          <AuthenticatedRoute user={user} exact path='/memories/:id' render={() => (
-            <MemoryUpdate msgAlert={this.msgAlert} user={user} />
+          <AuthenticatedRoute user={user} exact path='/memory-create' render={() => (
+            <MemoryCreate msgAlert={this.msgAlert} user={user} />
           )} />
         </main>
-
       </Fragment>
     )
   }

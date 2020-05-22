@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom'
 import { memoryIndex } from '../../api/memory'
 
 class MemoryIndex extends Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
     console.log('In the INDEX constructor')
     // UseFUL means use state:
     this.state = {
-      memories: null
+      memories: props.memories
     }
   }
 
@@ -25,8 +25,6 @@ class MemoryIndex extends Component {
     const { memories } = this.state
 
     let memoriesJsx
-
-    console.log(memories)
 
     if (!memories) {
       memoriesJsx = 'Nothing to view - please add a memory.'

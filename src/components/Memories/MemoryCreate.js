@@ -16,6 +16,7 @@ class MemoryCreate extends Component {
       },
       createId: null
     }
+    console.log('IN CONSTRUCTOR, this.state is: ', this.state)
   }
 
   handleChange = (event) => {
@@ -36,7 +37,7 @@ class MemoryCreate extends Component {
     memoryCreate(this.user, this.state.memory)
       .then(res => {
         // take the ID that was created and set it to the memory
-        this.setState({ createdId: res.data.memory.id })
+        this.setState({ createdId: res.data.memory._id })
       })
       .catch(console.error)
   }
@@ -61,6 +62,7 @@ class MemoryCreate extends Component {
 
     return (
       <div>
+
         {memoryJsx}
       </div>
     )

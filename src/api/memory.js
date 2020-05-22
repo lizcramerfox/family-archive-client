@@ -2,7 +2,6 @@ import apiUrl from '../apiConfig'
 import axios from 'axios'
 
 export const memoryIndex = user => {
-  console.log('we in the api call!')
   return axios({
     url: apiUrl + '/memories',
     method: 'GET',
@@ -24,7 +23,7 @@ export const memoryShow = (user, id) => {
 
 export const memoryCreate = (user, memory) => {
   return axios({
-    url: apiUrl + '/memories',
+    url: apiUrl + '/memories-create',
     method: 'POST',
     headers: {
       'Authorization': `Token token=${user.token}`

@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import MemoryForm from './MemoryForm'
 import { memoryShow } from '../../api/memory'
 
+// import MemoryForm from './MemoryForm'
+
 class MemoryShow extends Component {
-  constructor (props) {
-    super(props)
+  constructor () {
+    super()
     this.state = {
       editable: true
     }
@@ -24,7 +25,6 @@ class MemoryShow extends Component {
     } else {
       const memoryJsx = (
         <div>
-          <MemoryForm />
           {this.state.memory.id}
           {this.state.memory.title}
           {this.state.memory.description}
