@@ -14,7 +14,7 @@ class MemoryCreate extends Component {
         description: '',
         people: ''
       },
-      createId: null
+      createdId: null
     }
   }
 

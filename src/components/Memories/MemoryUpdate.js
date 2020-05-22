@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 
-import { memoryCreate } from '../../api/memory'
+import { memoryUpdate } from '../../api/memory'
 
 import MemoryForm from './MemoryForm.js'
 
-class MemoryCreate extends Component {
+class MemoryUpdate extends Component {
   constructor () {
     super()
     this.state = {
@@ -14,7 +14,7 @@ class MemoryCreate extends Component {
         description: '',
         people: ''
       },
-      createId: null
+      updated: false
     }
   }
 
@@ -27,28 +27,28 @@ class MemoryCreate extends Component {
     const editedMemory = Object.assign(this.state.memory, updatedField)
 
     // set the state
-    this.setState({ memory: editedMemory })
+    this.setState({ memory: editedMemory, updated: true })
   }
 
   handleSubmit = (event) => {
     event.preventDefault()
 
-    memoryCreate(this.user, this.state.memory)
+    memoryUpdate(this.user, this.state.memory)
       .then(res => {
-        // take the ID that was created and set it to the memory
-        this.setState({ createdId: res.data.memory.id })
+        // take the memory that was created and set it to the new state
+        this.setState({ memory: res.data.memory, updated: false })
       })
       .catch(console.error)
   }
 
   render () {
-    const { memory, createdId } = this.state
+    const { memory, updated } = this.state
 
     let memoryJsx
 
-    if (createdId) {
-      // If the memory's ID already exists, redirect to SHOW that id
-      memoryJsx = <Redirect to={`/memories/${createdId}`}/>
+    if (!updated) {
+      // If the memory is not updated, return to SHOW
+      memoryJsx = <Redirect to={`/memories/${this.memory.id}`} />
     } else {
       memoryJsx = (
         <MemoryForm
@@ -67,4 +67,4 @@ class MemoryCreate extends Component {
   }
 }
 
-export default MemoryCreate
+export default MemoryUpdate
