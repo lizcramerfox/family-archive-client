@@ -68,7 +68,7 @@ class App extends Component {
           <AuthenticatedRoute user={user} exact path='/memories/:id' render={(data) => (
             <MemoryShow msgAlert={this.msgAlert} user={user} id={data.match.params.id}/>
           )} />
-          <AuthenticatedRoute user={user} exact path='/memory-create' render={() => (
+          <AuthenticatedRoute user={user} exact path='/memories-create' render={() => (
             <MemoryCreate msgAlert={this.msgAlert} user={user} />
           )} />
         </main>
