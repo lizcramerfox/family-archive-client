@@ -62,7 +62,7 @@ class App extends Component {
           )} />
 
           {/* _____RESTful Routes for Memories_____ */}
-          <AuthenticatedRoute user={user} path='/memories' render={() => (
+          <AuthenticatedRoute user={user} exact path='/memories' render={() => (
             <MemoryIndex msgAlert={this.msgAlert} user={user} />
           )} />
           <AuthenticatedRoute user={user} exact path='/memories/:id' render={(data) => (
