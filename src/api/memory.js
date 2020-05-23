@@ -13,7 +13,7 @@ export const memoryIndex = user => {
 
 export const memoryShow = (user, id) => {
   return axios({
-    url: apiUrl + '/memories/:id',
+    url: apiUrl + `/memories/${id}`,
     method: 'GET',
     headers: {
       'Authorization': `Token token=${user.token}`
@@ -23,8 +23,8 @@ export const memoryShow = (user, id) => {
 
 export const memoryCreate = (user, memory) => {
   return axios({
-    url: apiUrl + '/memories-create',
-    method: 'GET',
+    url: apiUrl + '/memories',
+    method: 'POST',
     headers: {
       'Authorization': `Token token=${user.token}`
     },
@@ -38,10 +38,10 @@ export const memoryCreate = (user, memory) => {
   })
 }
 
-export const memoryUpdate = (user, memory) => {
+export const memoryUpdate = (user, memory, id) => {
   return axios({
-    url: apiUrl + '/memories/:id/edit',
-    method: 'GET',
+    url: apiUrl + `/memories/${id}`,
+    method: 'PATCH',
     headers: {
       'Authorization': `Token token=${user.token}`
     },
@@ -55,9 +55,9 @@ export const memoryUpdate = (user, memory) => {
   })
 }
 
-export const memoryDestroy = (user) => {
+export const memoryDestroy = (user, id) => {
   return axios({
-    url: apiUrl + '/memories/:id',
+    url: apiUrl + `/memories/${id}`,
     method: 'DELETE',
     headers: {
       'Authorization': `Token token=${user.token}`

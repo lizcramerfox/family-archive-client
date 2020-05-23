@@ -1,21 +1,64 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 
-import { memoryCreate } from '../../api/memory'
+import { memoryUpdate, memoryShow } from '../../api/memory'
+import messages from '../AutoDismissAlert/messages'
+import MemoryForm from './MemoryForm'
 
-import MemoryForm from './MemoryForm.js'
-
-class MemoryCreate extends Component {
+class MemoryUpdate extends Component {
   constructor () {
     super()
+
     this.state = {
-      memory: {
-        title: '',
-        description: '',
-        people: ''
-      },
-      createId: null
+      memory: null,
+      updated: false
     }
+  }
+
+  componentDidMount () {
+    const { msgAlert } = this.props
+    console.log('this.props is: ', this.props)
+    memoryShow(this.props.user, this.props.id)
+      .then(res => {
+        this.setState({ memory: res.data.memory })
+      })
+      .then(() => {
+        msgAlert({
+          heading: 'Show Memory Success',
+          variant: 'success',
+          message: messages.memoryShowSuccess
+        })
+      })
+      .catch(() => {
+        msgAlert({
+          heading: 'Show Memory Failed',
+          variant: 'danger',
+          message: messages.memoryShowFailure
+        })
+      })
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault()
+
+    const { msgAlert } = this.props
+
+    memoryUpdate(this.props.user, this.state.memory, this.props.id)
+      .then(() => this.setState({ updated: true }))
+      .then(() => {
+        msgAlert({
+          heading: 'Update Memory Success',
+          variant: 'success',
+          message: messages.memoryShowSuccess
+        })
+      })
+      .catch(() => {
+        msgAlert({
+          heading: 'Update Memory Failed',
+          variant: 'danger',
+          message: messages.memoryUpdateFailure
+        })
+      })
   }
 
   handleChange = (event) => {
@@ -30,41 +73,31 @@ class MemoryCreate extends Component {
     this.setState({ memory: editedMemory })
   }
 
-  handleSubmit = (event) => {
-    event.preventDefault()
-
-    memoryCreate(this.user, this.state.memory)
-      .then(res => {
-        // take the ID that was created and set it to the memory
-        this.setState({ createdId: res.data.memory.id })
-      })
-      .catch(console.error)
-  }
-
   render () {
-    const { memory, createdId } = this.state
+    const { memory, user, updated } = this.state
 
     let memoryJsx
 
-    if (createdId) {
-      // If the memory's ID already exists, redirect to SHOW that id
-      memoryJsx = <Redirect to={`/memories/${createdId}`}/>
+    if (!memory) {
+      memoryJsx = 'Loading...'
+    } else if (updated) {
+      memoryJsx = <Redirect to={`/memories/${this.props.id}`} />
     } else {
       memoryJsx = (
-        <MemoryForm
-          memory={memory}
-          handleChange={this.handleChange}
-          handleSubmit={this.handleSubmit}
-        />
+        <div>
+          <MemoryForm
+            memory={memory}
+            user={user}
+            handleChange={this.handleChange}
+            handleSubmit={this.handleSubmit}
+          />
+        </div>
       )
     }
-
     return (
-      <div>
-        {memoryJsx}
-      </div>
+      memoryJsx
     )
   }
 }
 
-export default MemoryCreate
+export default MemoryUpdate

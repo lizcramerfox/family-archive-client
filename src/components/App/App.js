@@ -3,19 +3,17 @@ import { Route } from 'react-router-dom'
 
 import AuthenticatedRoute from '../AuthenticatedRoute/AuthenticatedRoute'
 import AutoDismissAlert from '../AutoDismissAlert/AutoDismissAlert'
+
 import Header from '../Header/Header'
-import SignUp from '../SignUp/SignUp'
-import SignIn from '../SignIn/SignIn'
-import SignOut from '../SignOut/SignOut'
-import ChangePassword from '../ChangePassword/ChangePassword'
+
+import SignUp from '../Authentication/SignUp'
+import SignIn from '../Authentication/SignIn'
+import SignOut from '../Authentication/SignOut'
+import ChangePassword from '../Authentication/ChangePassword'
 import MemoryCreate from '../Memories/MemoryCreate'
 import MemoryIndex from '../Memories/MemoryIndex'
 import MemoryShow from '../Memories/MemoryShow'
 import MemoryUpdate from '../Memories/MemoryUpdate'
-import MemoryDestroy from '../Memories/MemoryDestroy'
-// import MemoriesDisplay from '../Memories/MemoriesDisplay'
-
-// import MemoryForm from '../Memories/MemoryForm'
 
 class App extends Component {
   constructor () {
@@ -28,9 +26,7 @@ class App extends Component {
   }
 
   setUser = user => this.setState({ user })
-
   clearUser = () => this.setState({ user: null })
-
   msgAlert = ({ heading, message, variant }) => {
     this.setState({ msgAlerts: [...this.state.msgAlerts, { heading, message, variant }] })
   }
@@ -65,23 +61,19 @@ class App extends Component {
           )} />
 
           {/* _____RESTful Routes for Memories_____ */}
-          <AuthenticatedRoute user={user} path='/memories' render={() => (
+          <AuthenticatedRoute user={user} exact path='/memories' render={() => (
             <MemoryIndex msgAlert={this.msgAlert} user={user} />
           )} />
-          <AuthenticatedRoute user={user} exact path="/memories/:id" render={() => (
-            <MemoryShow msgAlert={this.msgAlert} user={user} />
+          <AuthenticatedRoute user={user} exact path='/memories/:id' render={(data) => (
+            <MemoryShow msgAlert={this.msgAlert} user={user} id={data.match.params.id}/>
           )} />
-          <AuthenticatedRoute user={user} exact path="/memories/:id/edit" render={() => (
-            <MemoryUpdate msgAlert={this.msgAlert} user={user} />
-          )} />
-          <AuthenticatedRoute user={user} exact path="/memories-create" render={() => (
+          <AuthenticatedRoute user={user} exact path='/memories-create' render={() => (
             <MemoryCreate msgAlert={this.msgAlert} user={user} />
           )} />
-          <AuthenticatedRoute user={user} exact path="/memories/:id" render={() => (
-            <MemoryDestroy msgAlert={this.msgAlert} user={user} />
+          <AuthenticatedRoute user={user} exact path='/memories/:id/edit' render={(data) => (
+            <MemoryUpdate msgAlert={this.msgAlert} user={user} id={data.match.params.id}/>
           )} />
         </main>
-
       </Fragment>
     )
   }

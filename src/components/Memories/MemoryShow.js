@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
-import { Redirect, Link } from 'react-router-dom'
-import { memoryShow } from '../../api/memory'
+import { Card, Button } from 'react-bootstrap'
+import { memoryShow, memoryDestroy } from '../../api/memory'
+import { Link, Redirect } from 'react-router-dom'
 
 class MemoryShow extends Component {
   constructor () {
     super()
-
     this.state = {
-      memory: null,
+      editable: true,
       deleted: false
     }
   }
@@ -15,52 +15,43 @@ class MemoryShow extends Component {
   componentDidMount () {
     memoryShow(this.props.user, this.props.id)
       .then(res => {
-        console.log('Res is', res)
         this.setState({ memory: res.data.memory })
       })
       .catch(console.error)
   }
 
-  // destroy = (event) => {
-  //   event.preventDefault()
-  //   memoryDestroy(this.props.id)
-  //     .then(() => {
-  //       this.setState({ deleted: true })
-  //     })
-  //     .catch(console.error)
-  // }
+  deleteMemory = () => {
+    memoryDestroy(this.props.user, this.props.id)
+      .then(() => this.setState({ deleted: true }))
+      .catch(console.error)
+  }
 
   render () {
-    const { memory, deleted } = this.state.props
-
-    let memoryJsx
-
-    console.log(memory)
-
-    if (!memory) {
-      memoryJsx = 'Loading...'
-    } else if (deleted) {
-      // If we deleted the memory, redirect to `/memories`
-      memoryJsx = <Redirect to={'/memories/'}/>
+    if (!this.state.memory) {
+      return (<p>Loading memory...</p>)
+    } else if (this.state.deleted) {
+      return (<Redirect to='/memories' />)
     } else {
-      memoryJsx = (
+      const memoryJsx = (
+        <Card>
+          <Card.Body>
+            <Card.Header>Memory ID: {this.state.memory.id}</Card.Header>
+            <Card.Title>{this.state.memory.title}</Card.Title>
+            <Card.Text>{this.state.memory.description}</Card.Text>
+            <Card.Text>{this.state.memory.people}</Card.Text>
+            <Button variant="warning">
+              <Link to={`/memories/${this.state.memory.id}/edit`}>Update</Link>
+            </Button>
+            <Button variant="danger" onClick={this.deleteMemory}>Delete</Button>
+          </Card.Body>
+        </Card>
+      )
+      return (
         <div>
-          <h4>Title: {memory.title}</h4>
-          <h6>Description: {memory.description}</h6>
-          <p>People: {memory.people}</p>
-          <button onClick={this.destroy}>Delete</button>
-          <button>
-            <Link to={`/books/${memory.id}/edit`}>Update</Link>
-          </button>
+          {memoryJsx}
         </div>
       )
     }
-
-    return (
-      <div>
-        {memoryJsx}
-      </div>
-    )
   }
 }
 

@@ -14,7 +14,7 @@ class MemoryCreate extends Component {
         description: '',
         people: ''
       },
-      createId: null
+      createdId: null
     }
   }
 
@@ -33,7 +33,7 @@ class MemoryCreate extends Component {
   handleSubmit = (event) => {
     event.preventDefault()
 
-    memoryCreate(this.user, this.state.memory)
+    memoryCreate(this.props.user, this.state.memory)
       .then(res => {
         // take the ID that was created and set it to the memory
         this.setState({ createdId: res.data.memory.id })

@@ -3,19 +3,17 @@ import { Link } from 'react-router-dom'
 import { memoryIndex } from '../../api/memory'
 
 class MemoryIndex extends Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
 
-    // UseFUL means use state:
     this.state = {
-      memories: null
+      memories: props.memories
     }
   }
 
   componentDidMount () {
     memoryIndex(this.props.user)
       .then(res => {
-        // console.log('Res is: ', res)
         this.setState({ memories: res.data.memories })
       })
       .catch(console.error)
@@ -26,8 +24,6 @@ class MemoryIndex extends Component {
 
     let memoriesJsx
 
-    console.log(memories)
-
     if (!memories) {
       memoriesJsx = 'Nothing to view - please add a memory.'
     } else {
@@ -35,12 +31,17 @@ class MemoryIndex extends Component {
         <ul>
           {memories.map(memory => (
             <li key={memory.id}>
-              <Link to={`/memories/${memory.id}`}>{memory.title}</Link>
+              <Link to={`/memories/${memory.id}`}>
+                <h4>ID={memory.id} <em>{memory.title}</em></h4>
+              </Link>
+              <h6>{memory.description}</h6>
+              <p>{memory.people}</p>
             </li>
           ))}
         </ul>
       )
     }
+    console.log('This is "memories" in Index Render: ', memories)
 
     return (
       <div>
