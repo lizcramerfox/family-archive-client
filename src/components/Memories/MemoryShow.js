@@ -19,13 +19,13 @@ class MemoryShow extends Component {
       .then(res => {
         this.setState({ memory: res.data.memory })
       })
-      .then(() => {
-        msgAlert({
-          heading: 'Show Memory Success',
-          variant: 'success',
-          message: messages.memoryShowSuccess
-        })
-      })
+      // .then(() => {
+      //   msgAlert({
+      //     heading: 'Show Memory Success',
+      //     variant: 'success',
+      //     message: messages.memoryShowSuccess
+      //   })
+      // })
       .catch(() => {
         msgAlert({
           heading: 'Show Memory Failed',

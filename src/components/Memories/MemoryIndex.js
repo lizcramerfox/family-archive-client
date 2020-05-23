@@ -18,13 +18,13 @@ class MemoryIndex extends Component {
       .then(res => {
         this.setState({ memories: res.data.memories })
       })
-      .then(() => {
-        msgAlert({
-          heading: 'Show All Memories Success',
-          variant: 'success',
-          message: messages.memoryIndexSuccess
-        })
-      })
+      // .then(() => {
+      //   msgAlert({
+      //     heading: 'Show All Memories Success',
+      //     variant: 'success',
+      //     message: messages.memoryIndexSuccess
+      //   })
+      // })
       .catch(() => {
         msgAlert({
           heading: 'Show All Memories Failed',

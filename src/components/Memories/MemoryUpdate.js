@@ -21,13 +21,13 @@ class MemoryUpdate extends Component {
       .then(res => {
         this.setState({ memory: res.data.memory })
       })
-      .then(() => {
-        msgAlert({
-          heading: 'Display Memory Success',
-          variant: 'success',
-          message: messages.memoryShowSuccess
-        })
-      })
+      // .then(() => {
+      //   msgAlert({
+      //     heading: 'Display Memory Success',
+      //     variant: 'success',
+      //     message: messages.memoryShowSuccess
+      //   })
+      // })
       .catch(() => {
         msgAlert({
           heading: 'Display Memory Failed',
