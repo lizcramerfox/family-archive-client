@@ -5,8 +5,7 @@ import { memoryIndex } from '../../api/memory'
 class MemoryIndex extends Component {
   constructor (props) {
     super(props)
-    console.log('In the INDEX constructor')
-    // UseFUL means use state:
+
     this.state = {
       memories: props.memories
     }
@@ -15,7 +14,6 @@ class MemoryIndex extends Component {
   componentDidMount () {
     memoryIndex(this.props.user)
       .then(res => {
-        console.log('In componentDidMount, res is: ', res, '')
         this.setState({ memories: res.data.memories })
       })
       .catch(console.error)
@@ -33,8 +31,7 @@ class MemoryIndex extends Component {
         <ul>
           {memories.map(memory => (
             <li key={memory.id}>
-              <Link to=
-                {{ pathname: `/memories/${memory.id}`, state: { id: memory.id } }}>
+              <Link to={`/memories/${memory.id}`}>
                 <h4>ID={memory.id} <em>{memory.title}</em></h4>
               </Link>
               <h6>{memory.description}</h6>
@@ -44,6 +41,7 @@ class MemoryIndex extends Component {
         </ul>
       )
     }
+    console.log('This is "memories" in Index Render: ', memories)
 
     return (
       <div>

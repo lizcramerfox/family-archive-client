@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { Card, Button } from 'react-bootstrap'
 import { memoryShow, memoryDestroy } from '../../api/memory'
-import { Redirect, Link } from 'react-router-dom'
-// import MemoryForm from './MemoryForm'
+import { Link, Redirect } from 'react-router-dom'
 
 class MemoryShow extends Component {
   constructor () {
@@ -41,7 +40,7 @@ class MemoryShow extends Component {
             <Card.Text>{this.state.memory.description}</Card.Text>
             <Card.Text>{this.state.memory.people}</Card.Text>
             <Button variant="warning">
-              <Link to={`/memories/${this.state.memory.id}`}>Update</Link>
+              <Link to={`/memories/${this.state.memory.id}/edit`}>Update</Link>
             </Button>
             <Button variant="danger" onClick={this.deleteMemory}>Delete</Button>
           </Card.Body>

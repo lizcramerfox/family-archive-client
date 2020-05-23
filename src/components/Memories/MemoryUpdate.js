@@ -1,21 +1,64 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 
-import { memoryUpdate } from '../../api/memory'
-
-import MemoryForm from './MemoryForm.js'
+import { memoryUpdate, memoryShow } from '../../api/memory'
+import messages from '../AutoDismissAlert/messages'
+import MemoryForm from './MemoryForm'
 
 class MemoryUpdate extends Component {
   constructor () {
     super()
+
     this.state = {
-      memory: {
-        title: '',
-        description: '',
-        people: ''
-      },
+      memory: null,
       updated: false
     }
+  }
+
+  componentDidMount () {
+    const { msgAlert } = this.props
+    console.log('this.props is: ', this.props)
+    memoryShow(this.props.user, this.props.id)
+      .then(res => {
+        this.setState({ memory: res.data.memory })
+      })
+      .then(() => {
+        msgAlert({
+          heading: 'Show Memory Success',
+          variant: 'success',
+          message: messages.memoryShowSuccess
+        })
+      })
+      .catch(() => {
+        msgAlert({
+          heading: 'Show Memory Failed',
+          variant: 'danger',
+          message: messages.memoryShowFailure
+        })
+      })
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault()
+
+    const { msgAlert } = this.props
+
+    memoryUpdate(this.props.user, this.state.memory, this.props.id)
+      .then(() => this.setState({ updated: true }))
+      .then(() => {
+        msgAlert({
+          heading: 'Update Memory Success',
+          variant: 'success',
+          message: messages.memoryShowSuccess
+        })
+      })
+      .catch(() => {
+        msgAlert({
+          heading: 'Update Memory Failed',
+          variant: 'danger',
+          message: messages.memoryUpdateFailure
+        })
+      })
   }
 
   handleChange = (event) => {
@@ -27,42 +70,32 @@ class MemoryUpdate extends Component {
     const editedMemory = Object.assign(this.state.memory, updatedField)
 
     // set the state
-    this.setState({ memory: editedMemory, updated: true })
-  }
-
-  handleSubmit = (event) => {
-    event.preventDefault()
-
-    memoryUpdate(this.user, this.state.memory)
-      .then(res => {
-        // take the memory that was created and set it to the new state
-        this.setState({ memory: res.data.memory, updated: false })
-      })
-      .catch(console.error)
+    this.setState({ memory: editedMemory })
   }
 
   render () {
-    const { memory, updated } = this.state
+    const { memory, user, updated } = this.state
 
     let memoryJsx
 
-    if (!updated) {
-      // If the memory is not updated, return to SHOW
-      memoryJsx = <Redirect to={`/memories/${this.memory.id}`} />
+    if (!memory) {
+      memoryJsx = 'Loading...'
+    } else if (updated) {
+      memoryJsx = <Redirect to={`/memories/${this.props.id}`} />
     } else {
       memoryJsx = (
-        <MemoryForm
-          memory={memory}
-          handleChange={this.handleChange}
-          handleSubmit={this.handleSubmit}
-        />
+        <div>
+          <MemoryForm
+            memory={memory}
+            user={user}
+            handleChange={this.handleChange}
+            handleSubmit={this.handleSubmit}
+          />
+        </div>
       )
     }
-
     return (
-      <div>
-        {memoryJsx}
-      </div>
+      memoryJsx
     )
   }
 }

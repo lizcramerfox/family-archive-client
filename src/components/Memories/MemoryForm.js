@@ -2,7 +2,7 @@ import React from 'react'
 import { Form, Button } from 'react-bootstrap'
 
 // Template Form with all fields for Memory
-const MemoryForm = ({ memory, handleChange, handleSubmit }) => (
+const MemoryForm = ({ memory, user, handleChange, handleSubmit }) => (
   <Form onSubmit={handleSubmit}>
     <Form.Group controlId="title">
       <Form.Label>Title</Form.Label>

@@ -13,8 +13,7 @@ import ChangePassword from '../Authentication/ChangePassword'
 import MemoryCreate from '../Memories/MemoryCreate'
 import MemoryIndex from '../Memories/MemoryIndex'
 import MemoryShow from '../Memories/MemoryShow'
-// import MemoryUpdate from '../Memories/MemoryUpdate'
-// import MemoryDestroy from '../Memories/MemoryDestroy'
+import MemoryUpdate from '../Memories/MemoryUpdate'
 
 class App extends Component {
   constructor () {
@@ -70,6 +69,9 @@ class App extends Component {
           )} />
           <AuthenticatedRoute user={user} exact path='/memories-create' render={() => (
             <MemoryCreate msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} exact path='/memories/:id/edit' render={(data) => (
+            <MemoryUpdate msgAlert={this.msgAlert} user={user} id={data.match.params.id}/>
           )} />
         </main>
       </Fragment>
