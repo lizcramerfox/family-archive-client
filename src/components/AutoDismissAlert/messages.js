@@ -16,5 +16,7 @@ export default {
   memoryIndexSuccess: 'All memories retrieved successfully.',
   memoryIndexFailure: 'Failed to display your memories. Please try again.',
   memoryShowSuccess: 'Your memory is now displayed.',
-  memoryShowFailure: 'Failed to open your memory. Please try again.'
+  memoryShowFailure: 'Failed to open your memory. Please try again.',
+  memoryDeleteSuccess: 'Your memory has been deleted.',
+  memoryDeleteFailure: 'Failed to delete your memory. Please try again.'
 }

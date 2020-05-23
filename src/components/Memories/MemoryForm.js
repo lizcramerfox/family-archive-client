@@ -1,5 +1,6 @@
 import React from 'react'
 import { Form, Button } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 
 // Template Form with all fields for Memory
 const MemoryForm = ({ memory, user, handleChange, handleSubmit }) => (
@@ -40,7 +41,9 @@ const MemoryForm = ({ memory, user, handleChange, handleSubmit }) => (
       />
       <Form.Text>Type the names of people in this memory.</Form.Text>
     </Form.Group>
-    <Button variant="warning">Cancel</Button>
+    <Button variant="warning">
+      <Link to={`/memories/${memory.id}`}>Cancel</Link>
+    </Button>
     <Button type="submit" variant="success">Save Memory</Button>
   </Form>
 )
