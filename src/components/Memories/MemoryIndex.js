@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { memoryIndex } from '../../api/memory'
+import messages from '../AutoDismissAlert/messages'
 
 class MemoryIndex extends Component {
   constructor (props) {
@@ -12,11 +13,25 @@ class MemoryIndex extends Component {
   }
 
   componentDidMount () {
+    const { msgAlert } = this.props
     memoryIndex(this.props.user)
       .then(res => {
         this.setState({ memories: res.data.memories })
       })
-      .catch(console.error)
+      // .then(() => {
+      //   msgAlert({
+      //     heading: 'Show All Memories Success',
+      //     variant: 'success',
+      //     message: messages.memoryIndexSuccess
+      //   })
+      // })
+      .catch(() => {
+        msgAlert({
+          heading: 'Show All Memories Failed',
+          variant: 'danger',
+          message: messages.memoryShowFailure
+        })
+      })
   }
 
   render () {
@@ -41,7 +56,6 @@ class MemoryIndex extends Component {
         </ul>
       )
     }
-    console.log('This is "memories" in Index Render: ', memories)
 
     return (
       <div>

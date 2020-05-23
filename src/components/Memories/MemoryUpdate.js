@@ -17,21 +17,20 @@ class MemoryUpdate extends Component {
 
   componentDidMount () {
     const { msgAlert } = this.props
-    console.log('this.props is: ', this.props)
     memoryShow(this.props.user, this.props.id)
       .then(res => {
         this.setState({ memory: res.data.memory })
       })
-      .then(() => {
-        msgAlert({
-          heading: 'Show Memory Success',
-          variant: 'success',
-          message: messages.memoryShowSuccess
-        })
-      })
+      // .then(() => {
+      //   msgAlert({
+      //     heading: 'Display Memory Success',
+      //     variant: 'success',
+      //     message: messages.memoryShowSuccess
+      //   })
+      // })
       .catch(() => {
         msgAlert({
-          heading: 'Show Memory Failed',
+          heading: 'Display Memory Failed',
           variant: 'danger',
           message: messages.memoryShowFailure
         })
