@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { Card, Button } from 'react-bootstrap'
 import { memoryIndex } from '../../api/memory'
 import messages from '../AutoDismissAlert/messages'
 
@@ -8,12 +9,13 @@ class MemoryIndex extends Component {
     super(props)
 
     this.state = {
-      memories: props.memories
+      memories: []
     }
   }
 
   componentDidMount () {
     const { msgAlert } = this.props
+
     memoryIndex(this.props.user)
       .then(res => {
         this.setState({ memories: res.data.memories })
@@ -39,27 +41,26 @@ class MemoryIndex extends Component {
 
     let memoriesJsx
 
-    if (!memories) {
-      memoriesJsx = 'Nothing to view - please add a memory.'
+    if (this.state.memories.length < 1) {
+      memoriesJsx = (<h3>Nothing to view - please add a memory.</h3>)
     } else {
-      memoriesJsx = (
-        <ul>
-          {memories.map(memory => (
-            <li key={memory.id}>
-              <Link to={`/memories/${memory.id}`}>
-                <h4>ID={memory.id} <em>{memory.title}</em></h4>
-              </Link>
-              <h6>{memory.description}</h6>
-              <p>{memory.people}</p>
-            </li>
-          ))}
-        </ul>
-      )
+      memoriesJsx = (memories.map(memory => (
+        <Card key={memory.id}>
+          <Card.Header>{memory.title}</Card.Header>
+          <Card.Body>
+            <Card.Text>{memory.description}</Card.Text>
+            <Link to={`/memories/${memory.id}`}>
+              <Button block="true">
+              View Memory
+              </Button>
+            </Link>
+          </Card.Body>
+        </Card>
+      )))
     }
 
     return (
       <div>
-        <h1>My Saved Memories</h1>
         {memoriesJsx}
       </div>
     )

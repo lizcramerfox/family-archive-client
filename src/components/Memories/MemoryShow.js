@@ -63,14 +63,13 @@ class MemoryShow extends Component {
     } else {
       const memoryJsx = (
         <Card>
+          <Card.Header>{this.state.memory.title}</Card.Header>
           <Card.Body>
-            <Card.Header>Memory ID: {this.state.memory.id}</Card.Header>
-            <Card.Title>{this.state.memory.title}</Card.Title>
             <Card.Text>{this.state.memory.description}</Card.Text>
             <Card.Text>{this.state.memory.people}</Card.Text>
-            <Button variant="warning">
-              <Link to={`/memories/${this.state.memory.id}/edit`}>Update</Link>
-            </Button>
+            <Link to={`/memories/${this.state.memory.id}/edit`}>
+              <Button variant="warning">Update</Button>
+            </Link>
             <Button variant="danger" onClick={this.deleteMemory}>Delete</Button>
           </Card.Body>
         </Card>
