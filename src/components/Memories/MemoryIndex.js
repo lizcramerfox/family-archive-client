@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { Card, CardDeck, Button } from 'react-bootstrap'
+import { Card, Button } from 'react-bootstrap'
 import { memoryIndex } from '../../api/memory'
 import messages from '../AutoDismissAlert/messages'
 
@@ -9,12 +9,13 @@ class MemoryIndex extends Component {
     super(props)
 
     this.state = {
-      memories: props.memories
+      memories: []
     }
   }
 
   componentDidMount () {
     const { msgAlert } = this.props
+
     memoryIndex(this.props.user)
       .then(res => {
         this.setState({ memories: res.data.memories })
@@ -40,8 +41,8 @@ class MemoryIndex extends Component {
 
     let memoriesJsx
 
-    if (!memories) {
-      memoriesJsx = 'Nothing to view - please add a memory.'
+    if (this.state.memories.length < 1) {
+      memoriesJsx = (<h3>Nothing to view - please add a memory.</h3>)
     } else {
       memoriesJsx = (memories.map(memory => (
         <Card key={memory.id}>
@@ -60,9 +61,7 @@ class MemoryIndex extends Component {
 
     return (
       <div>
-        <CardDeck>
-          {memoriesJsx}
-        </CardDeck>
+        {memoriesJsx}
       </div>
     )
   }
