@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { Card, CardDeck, Button } from 'react-bootstrap'
 import { memoryIndex } from '../../api/memory'
 import messages from '../AutoDismissAlert/messages'
 
@@ -42,25 +43,26 @@ class MemoryIndex extends Component {
     if (!memories) {
       memoriesJsx = 'Nothing to view - please add a memory.'
     } else {
-      memoriesJsx = (
-        <ul>
-          {memories.map(memory => (
-            <li key={memory.id}>
-              <Link to={`/memories/${memory.id}`}>
-                <h4>ID={memory.id} <em>{memory.title}</em></h4>
-              </Link>
-              <h6>{memory.description}</h6>
-              <p>{memory.people}</p>
-            </li>
-          ))}
-        </ul>
-      )
+      memoriesJsx = (memories.map(memory => (
+        <Card key={memory.id}>
+          <Card.Header>{memory.title}</Card.Header>
+          <Card.Body>
+            <Card.Text>{memory.description}</Card.Text>
+            <Link to={`/memories/${memory.id}`}>
+              <Button block="true">
+              View Memory
+              </Button>
+            </Link>
+          </Card.Body>
+        </Card>
+      )))
     }
 
     return (
       <div>
-        <h1>My Saved Memories</h1>
-        {memoriesJsx}
+        <CardDeck>
+          {memoriesJsx}
+        </CardDeck>
       </div>
     )
   }

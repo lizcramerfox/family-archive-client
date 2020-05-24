@@ -41,9 +41,9 @@ const MemoryForm = ({ memory, user, handleChange, handleSubmit }) => (
       />
       <Form.Text>Type the names of people in this memory.</Form.Text>
     </Form.Group>
-    <Button variant="warning">
-      <Link to={'/memories/'}>Cancel</Link>
-    </Button>
+    <Link to={'/memories'}>
+      <Button variant="warning">Cancel</Button>
+    </Link>
     <Button type="submit" variant="success">Save Memory</Button>
   </Form>
 )
