@@ -27,8 +27,8 @@ This is a simple React-based SPI application which allows an authenticated user 
 #### Screenshot of Planning Board
 > ![](https://i.imgur.com/HyuwA5u.png)
 
-#### Entity Relationship Diagram (ERD)
->![ERD](https://i.imgur.com/iXq1296.jpg)
+#### Wireframe
+>![](https://i.imgur.com/dFtP4SS.jpg)
 
 #### API Routes
 | Prefix | Verb | URI Pattern | Controller#Action |
