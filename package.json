@@ -1,6 +1,6 @@
 {
   "name": "family-archive-app",
-  "homepage": "https://lizcramerfox.github.io/family-archive-client",
+  "homepage": ".",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
