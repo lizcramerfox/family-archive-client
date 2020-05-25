@@ -12,6 +12,11 @@ This is a simple React-based SPI application which allows an authenticated user 
 - Ruby on Rails **|** Ruby
 - HTML **|** CSS **|** Bootstrap
 
+#### Dependencies
+To install dependencies, run the following commands:
+- [Client](https://github.com/lizcramerfox/family-archive-client): `npm install`
+- [API](https://github.com/lizcramerfox/Family-Archive-API): `bundle install`
+
 #### Application Screenshot
 >![https://lizcramerfox.github.io/family-archive-client/](https://i.imgur.com/MDBSAqy.png)
 
